@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Untitled Document</title>
+</head>
+
+<body>
+
+
+<textarea id="myTextarea"></textarea>
+<button id="my-button" onclick="myFunction()">check text</button>
+<script>
+
+myFunction = () =>{
+
+
+	const str = document.getElementById("myTextarea").value
+	const arr = str.split("\n")
+	let resultString = ""
+	
+	for (let i = 0; i < arr.length; i++){
+	
+		let lineDuplicateCharacs = arr[i].match(/(.)(?=.*\1)/gi) // all duplicated characs into array
+		if( lineDuplicateCharacs === null ) continue
+		
+		const duplicatesTempArray = lineDuplicateCharacs.reduce( (grouped , charac ) =>{
+			grouped[charac] = ( grouped[charac] || 0) + 1
+			//if( grouped[charac] === undefined ) grouped[charac] = 0
+			//if( grouped[charac] != undefined ) grouped[charac] = grouped[charac] + 1
+			return grouped
+		},{})
+		if ( Object.values(duplicatesTempArray).some( (element) => element == 1 ) ) resultString += `${arr[i]}\n`
+		
+	}
+	alert(resultString)
+
+}
+
+
+
+</script>
+
+
+</body>
+</html>
